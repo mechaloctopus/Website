@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>My Projects</h1>
+        <p>Here's a list of my awesome projects!</p>
+        <a href="index.html" class="button">Back to Home</a>
+    </div>
+
+    <script>
+        let T = 0;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight, WEBGL);
+        }
+
+        function draw() {
+            background(0);
+            stroke(400, 20);
+            for (let t = 0; t < TAU; t += PI / 2048) {
+                let a = atan(tan(T));
+                for (let r = 0; r < PI; r += PI / 4) {
+                    rotate(r);
+                    let n = a + t + T;
+                    let m = a - t + T;
+                    let A = atan(tan(T));
+                    let x = 800 * noise(sin(n), cos(m), A) - 400;
+                    let y = 800 * noise(cos(n), sin(m), A) - 400;
+                    point(x, y);
+                    point(2 * y, 2 * x);
+                }
+            }
+            T += 0.001;
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>
