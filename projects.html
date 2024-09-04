@@ -51,21 +51,25 @@
 
         function draw() {
             background(0);
-            stroke(400, 20);
-            for (let t = 0; t < TAU; t += PI / 2048) {
+            stroke(255, 20);
+            rotateX(T * 0.1);
+            rotateY(T * 0.1);
+            for (let t = 0; t < TAU; t += PI / 128) {
                 let a = atan(tan(T));
+                push();
                 for (let r = 0; r < PI; r += PI / 4) {
                     rotate(r);
                     let n = a + t + T;
                     let m = a - t + T;
                     let A = atan(tan(T));
-                    let x = 800 * noise(sin(n), cos(m), A) - 400;
-                    let y = 800 * noise(cos(n), sin(m), A) - 400;
+                    let x = width * 0.4 * noise(sin(n), cos(m), A) - width * 0.2;
+                    let y = height * 0.4 * noise(cos(n), sin(m), A) - height * 0.2;
                     point(x, y);
-                    point(2 * y, 2 * x);
+                    point(y, x);
                 }
+                pop();
             }
-            T += 0.001;
+            T += 0.01;
         }
 
         function windowResized() {
