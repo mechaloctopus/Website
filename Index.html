@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P5.js Background Animation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Josh Trembath</h1>
+        <p>welcome</p>
+    </div>
+
+    <script>
+        let A = [], B = [], t = 0;
+        const V = p5.Vector.fromAngle;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            for (let i = 3000; i--;) B[i] = V(i);
+        }
+
+        function draw() {
+            background(0, 10); // Add a slight fade effect
+            t += 0.003;
+            translate(width / 2, height / 2);
+            for (let i = 5; i--;) A[i] = V(t * i, i * 50);
+            for (let b of B) {
+                let d = 0;
+                for (let a of A) d += atan2(a.y - b.y, a.x - b.x);
+                stroke(255, 50); // White color with low opacity
+                line(b.x, b.y, b.x += cos(d) * 6, b.y += sin(d) * 6);
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>
